@@ -1,4 +1,4 @@
-package com.example.springbootswagger;
+package com.example.srm;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringbootSwaggerApplicationTests {
+public class SrmApplicationTests {
 
     @Test
     public void contextLoads() {

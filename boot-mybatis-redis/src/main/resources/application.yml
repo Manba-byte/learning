@@ -1,3 +1,4 @@
+
 spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
@@ -5,13 +6,22 @@ spring:
         password: Ccjsj1200#@!
         url: jdbc:mysql://119.23.18.147:3396/was?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
         driver-class-name: com.mysql.cj.jdbc.Driver
+    cache:
+        type: redis
+    redis:
+        host: localhost
+        port: 6379
+
 server:
     port: 3396
 
 
 mybatis:
-    mapper-locations: classpath:mapping/*Mapper.xml
-    type-aliases-package: com.example.springbootswagger.entity
+    mapper-locations: classpath:mapper/*Mapper.xml
+    type-aliases-package: com.example.srm.entity
+
+
+
 
 #showSql
 logging:

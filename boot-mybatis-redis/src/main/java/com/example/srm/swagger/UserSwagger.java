@@ -1,4 +1,4 @@
-package com.example.springbootswagger.swagger;
+package com.example.srm.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class UserSwagger {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.springbootswagger.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.example.srm.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
