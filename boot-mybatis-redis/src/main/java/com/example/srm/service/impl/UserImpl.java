@@ -49,7 +49,7 @@ public class UserImpl implements UserInter {
     }
 
     @Override
-    @Cacheable(value = "all",keyGenerator = "wiselyKeyGenerator")
+    @Cacheable(value = "all",keyGenerator = "wiselyKeyGenerator") //使用该注解开启redis缓存
     public List<User> selectUser(){
         System.out.println("进来了");
         return userMapper.selectUser();
