@@ -44,4 +44,37 @@ public class Demo {
     public static void print(String a){
         System.out.println(a);
     }
+    
+    /**
+	 * pda 货位排序
+	 * @param pcdvList List<PdaChangePickingDetailsDTO>
+	 * @return List<PdaChangePickingDetailsDTO>
+	 */
+	private List<PdaChangePickingDetailsDTO> sort(List<PdaChangePickingDetailsDTO> pcdvList){
+		//获取货位编码规则
+		//库区编码(楼层)【正序】/货列【正序】/货架根据货列奇【正序】偶【逆序】/货位(层 逆序) (格 正序)
+		List<PdaChangePickingDetailsDTO> collect = pcdvList.stream().sorted(
+				Comparator.comparing(PdaChangePickingDetailsDTO::getAreaFloor)
+				.thenComparing(new Comparator<PdaChangePickingDetailsDTO>() {
+					@Override
+					public int compare(PdaChangePickingDetailsDTO o1, PdaChangePickingDetailsDTO o2) {
+                        Integer o1Int = Integer.valueOf(o1.getRowCode().substring(o1.getAreaCode().length()));
+						Integer O2Int = Integer.valueOf(o2.getRowCode().substring(o2.getAreaCode().length()));
+						return o1Int.compareTo(O2Int);
+					}
+				})
+				.thenComparing(new Comparator<PdaChangePickingDetailsDTO>() {
+					@Override
+					public int compare(PdaChangePickingDetailsDTO o1, PdaChangePickingDetailsDTO o2) {
+						Integer o1Int = Integer.valueOf(o1.getRowCode().substring(o1.getAreaCode().length()));
+						Integer s1 = Integer.valueOf(o1.getShelvesCode().split("-")[1]);
+						Integer s2 = Integer.valueOf(o2.getShelvesCode().split("-")[1]);
+						return o1Int % 2 == 0 ? s2.compareTo(s1) : s1.compareTo(s2);
+					}
+				})
+				.thenComparing(Comparator.comparing(PdaChangePickingDetailsDTO::getShelvesLayer).reversed())
+				.thenComparing(PdaChangePickingDetailsDTO::getShelvesGrid)
+		).collect(Collectors.toList());
+		return collect;
+	}
 }
